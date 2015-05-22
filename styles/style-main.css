@@ -1,21 +1,19 @@
 a.mediaSelect-btn {
 	position: relative;
-	background-color: red;
-	color: white;
 	font-size: 20pt;
 	padding-left: 5px;
 	right: 65px;	
 	border: 1px solid transparent;
 }
-.yt {
+a.yt {
 	background-color: red;
 	color: white;
 }
-.gif {
+a.gif {
 	background-color: black;
 	color: blue;
 }
-
 a.mediaSelect-btn:link {
 	text-decoration: none;
 }
+

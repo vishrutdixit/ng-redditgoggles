@@ -8,6 +8,8 @@ app.controller('searchController', ['$scope', 'dataFactory', function($scope, da
     $scope.nextCounter = 25; 
 
     $scope.canLoad = false; 
+    $scope.medaType = true; //true for yt, false for gif
+    $scope.mediaText = 'YT';
 
     $scope.fetchData = function(){
     	dataFactory.getAll($scope.subreddit).then(function(res){
@@ -41,6 +43,18 @@ app.controller('searchController', ['$scope', 'dataFactory', function($scope, da
     		$scope.nextCounter += 25;
     		NProgress.done();
     	})
+    };
+
+    $scope.toggleMedia = function() {
+    	if($scope.mediaType) {
+    		$scope.mediaType = false; 
+    		$scope.mediaText = 'GIF';
+    	}
+    	else {
+    		$scope.mediaType = true; 
+    		$scope.mediaText = 'YT';
+    	} 
+    	
     };
 }]);
 
@@ -134,3 +148,5 @@ app.factory('dataFactory', function($http, $q){
 
 	return service;
 });
+
+

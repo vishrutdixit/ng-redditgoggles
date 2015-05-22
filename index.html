@@ -20,20 +20,23 @@
 	<link rel='stylesheet' href='styles/nprogress.css'/>
 
 </head>
-<body style="margin-left: 10px"ng-controller="searchController">
+<body style="margin-left: 10px" ng-controller="searchController">
 	<h1> Hello World. Time to rebuild redditgoggles :D </h1>
 	<h2> 
 		<div>
 		<form ng-submit="fetchVideos()">
-		<input ng-model="mediaText" type="text" name="subreddit" placeholder="Enter a subreddit">
-		<a href="#" ng-click="toggleMedia()" class="mediaSelect-btn"> {{searchController.mediaText}} </a>
+		<input ng-model="subreddit" type="text" name="subreddit" placeholder="Enter a subreddit">
+		<a href='' ng-click="toggleMedia()" class="mediaSelect-btn" ng-class="mediaType ? 'a.yt' : 'a.gif'"> {{mediaText}} </a>
 		<button class="large-btn btn-success"> Submit </button>
 		</form>
 		</div>
 	</h2>
-	{{subreddit}}
 	<hr>
 	<ul class="list-unstyled">
+		<li> Things to Do: </li>
+		<li> Make GIF processing service <li>
+		<li> FRONTEND </li>
+		<hr>
 		<li ng-repeat="video in videoData.videos"> 
 			<a href={{video.embedUrl}} target="_blank"> {{video.title}} </a>
 			<br>
