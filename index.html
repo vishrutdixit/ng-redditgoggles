@@ -24,21 +24,39 @@
 	<h1> Hello World. Time to rebuild redditgoggles :D </h1>
 	<h2> 
 		<div>
-		<form ng-submit="fetchVideos()">
+		<form ng-submit="fetchMedia()">
 		<input ng-model="subreddit" type="text" name="subreddit" placeholder="Enter a subreddit">
-		<a href='' ng-click="toggleMedia()" class="mediaSelect-btn" ng-class="mediaType ? 'a.yt' : 'a.gif'"> {{mediaText}} </a>
+		<!-- <a href='' ng-click="toggleMedia()" class="mediaSelect-btn" ng-class="mediaType ? 'a.yt' : 'a.gif'"> {{mediaText}} </a> -->
 		<button class="large-btn btn-success"> Submit </button>
 		</form>
 		</div>
 	</h2>
+	<!--
+	<iframe style="pointer-events: none" src="http://i.imgur.com/4zR6agI.gif" frameborder="0" scrolling="no" width="350" height="200" style="-webkit-backface-visibility: hidden;-webkit-transform: scale(1);" ></iframe>
+	<iframe width="350" height="200" src="http://gfycat.com/ifr/QuerulousVillainousArachnid" style="pointer-events: none -webkit-transform:scale(0.01);-moz-transform-scale(0.01);" frameborder="0" scrolling="no"></iframe>
 	<hr>
+	-->
 	<ul class="list-unstyled">
+		<!--
 		<li> Things to Do: </li>
-		<li> Make GIF processing service <li>
+		
+		<li> Message on non-existing reddit name (realtime check) </li>
+		
+		<li> Mark visited links </li>
+		<li> include list of popular video/gif subreddits </li> 
+		<li> load comments into html or visit reddit apge </li>
+		
 		<li> FRONTEND </li>
+		-->
 		<hr>
-		<li ng-repeat="video in videoData.videos"> 
-			<a href={{video.embedUrl}} target="_blank"> {{video.title}} </a>
+		<input ng-model="searchText">
+		<li ng-repeat="gif in gifData.gifs | filter:searchText"> 
+			{{gif.upvotes}} <a href={{gif.embedUrl}} target="_blank"> {{gif.title}}  </a> 
+			<br>
+			<!-- <img src={{video.thumbUrl}} + 'width=100 height=100'> -->
+		</li>
+		<li ng-repeat="video in videoData.videos | filter:searchText"> 
+			{{video.upvotes}} <a href={{video.embedUrl}} target="_blank"> {{video.title}}  </a> 
 			<br>
 			<!-- <img src={{video.thumbUrl}} + 'width=100 height=100'> -->
 		</li>

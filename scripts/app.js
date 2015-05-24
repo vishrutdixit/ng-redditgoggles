@@ -2,47 +2,57 @@ var app = angular.module('app', []);
 
 app.controller('searchController', ['$scope', 'dataFactory', function($scope, dataFactory) {
     $scope.subreddit = '';
-    $scope.data = {};
     $scope.videoData = {};
     $scope.gifData = {};
     $scope.nextCounter = 25; 
 
     $scope.canLoad = false; 
-    $scope.medaType = true; //true for yt, false for gif
+    $scope.wantVideo = true; 
+    $scope.wantGif = false; 
+    $scope.wantPic = false;
     $scope.mediaText = 'YT';
 
-    $scope.fetchData = function(){
-    	dataFactory.getAll($scope.subreddit).then(function(res){
-    		$scope.data = res.data; 
-    		console.log($scope.data);
-    	});
-    };
-
-    $scope.fetchVideos = function(){
+    $scope.fetchMedia = function(){
     	NProgress.start();
-    	dataFactory.getVideos($scope.subreddit).then(function(res){
-    		$scope.videoData = res; 
-    		console.log($scope.videoData);
-    		$scope.canLoad = true;
-    		$scope.nextCounter = 25; 
+    	dataFactory.getMedia($scope.subreddit).then(function(res){
+	    	$scope.videoData = res.videoData; 
+	    	$scope.gifData = res.gifData;
+	    	//console.log($scope.videoData);
+	    	$scope.canLoad = true;
+	    	$scope.nextCounter = 25; 
+	    	NProgress.done();
+    	}, function(reason){
+    		console.log(reason);
     		NProgress.done();
-    	})
+    	});
     };
 
     $scope.getNext = function(){
     	NProgress.start();
-    	console.log($scope.nextCounter, $scope.videoData.after)
-    	dataFactory.getVideos($scope.subreddit, $scope.nextCounter, $scope.videoData.after).then(function(res){
-    		for(var i=0; i<res.videos.length; i++) {
-    			$scope.videoData.videos.push(res.videos[i]); 
+    	//console.log($scope.nextCounter, $scope.videoData.after)
+    	dataFactory.getMedia($scope.subreddit, $scope.nextCounter, $scope.videoData.after).then(function(res){
+    		if(res.videoData.videos.length) {
+	    		for(var i=0; i<res.videoData.videos.length; i++) {
+	    			$scope.videoData.videos.push(res.videoData.videos[i]);
+	    		}
+	    		$scope.videoData.after = res.videoData.after;
     		}
-    		$scope.videoData.after = res.after;
-    		console.log($scope.videoData);
-    		if($scope.videoData.after == null) 
-    			$scope.canLoad = false;
-    		$scope.nextCounter += 25;
     		NProgress.done();
-    	})
+    		if($scope.videoData.after == null) $scope.canLoad = false;
+    	});
+    	
+    	dataFactory.getMedia($scope.subreddit, $scope.nextCounter, $scope.gifData.after).then(function(res){
+    		if(res.gifData.gifs.length) {
+    			for(var i=0; i<res.gifData.gifs.length; i++) {
+	    			$scope.gifData.gifs.push(res.gifData.gifs[i]);
+	    		}
+	    		$scope.gifData.after = res.gifData.after;
+    		}
+    		NProgress.done();
+    		if($scope.gifData.after == null) $scope.canLoad = false;
+    	});
+		
+    	$scope.nextCounter += 25;
     };
 
     $scope.toggleMedia = function() {
@@ -56,6 +66,8 @@ app.controller('searchController', ['$scope', 'dataFactory', function($scope, da
     	} 
     	
     };
+
+    
 }]);
 
 app.factory('dataFactory', function($http, $q){
@@ -65,7 +77,6 @@ app.factory('dataFactory', function($http, $q){
 	service.data = {};
 
 	service.getAll = function(subreddit, count, after){
-		
 		if(count && after) 
 			finalUrl = baseUrl + subreddit + '/.json' + '?count=' + count + '&after=' + after;
 		else 
@@ -79,21 +90,26 @@ app.factory('dataFactory', function($http, $q){
 		})
 		.error(function(err, status){
 			deferred.reject(err);
-			console.log(err);
+			
 		})
+		//console.log(deferred.promise);
+		return deferred.promise;
+	}
 
-		return deferred.promise;}
-
-	service.getVideos = function(subreddit, count, after) {	var deferred = $q.defer();
-
-		service.getAll(subreddit, count, after).then(function(){
+	service.getMedia = function(subreddit, count, after) {	
+		var deferred = $q.defer();
+		service.getAll(subreddit, count, after).then(function(res){
+			//console.log('inside getMedia');
 			var data = {};
+			var videoData = {};
+			var gifData = {};
 			var videos = []; 
+			var gifs = [];
 			var after = service.data.after;
 			$.each(service.data.children, function(i, post){
+				var title = post.data.title; 
+				var upvotes = post.data.ups;
 				if(post.data.domain == 'youtube.com' || post.data.domain == 'youtu.be'){
-
-					var title = post.data.title; 
 					var thumbUrl = '';
 					var embedUrl = '';
 					var initUrl = post.data.url; 
@@ -131,20 +147,42 @@ app.factory('dataFactory', function($http, $q){
 		            video['title'] = title;
 		            video['thumbUrl'] = thumbUrl;
 		            video['embedUrl'] = embedUrl; 
+		            video['upvotes'] = upvotes;
 
-		            
 		            videos.push(video);
 		            NProgress.inc();
 		            
 				}
+
+				if(post.data.domain == 'i.imgur.com') {
+					var thumbUrl = post.data.thumbnail;
+					var embedUrl = post.data.url + '#';
+					
+					var gif = {}; 
+		            gif['title'] = title;
+		            gif['thumbUrl'] = thumbUrl;
+		            gif['embedUrl'] = embedUrl; 
+		            gif['upvotes'] = upvotes;
+
+		            gifs.push(gif);
+		            NProgress.inc();
+				}
 			});
-			console.log(after);
-			data['after'] = after;
-			data['videos'] = videos;
+			//console.log(after);
+			videoData['after'] = after;
+			videoData['videos'] = videos;
+			gifData['after'] = after;
+			gifData['gifs'] = gifs;
+			data['videoData'] = videoData;
+			data['gifData'] = gifData;
+
 			deferred.resolve(data);
-		}); 
+		}, function(reason){
+			deferred.reject(reason);
+		});
+		//console.log(deferred.promise);
 		return deferred.promise;
-	}
+	};
 
 	return service;
 });
