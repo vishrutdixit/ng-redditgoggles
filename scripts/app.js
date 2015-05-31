@@ -1,16 +1,24 @@
-var app = angular.module('app', []); 
+var app = angular.module('app', ['ngAnimate']); 
 
 app.controller('searchController', ['$scope', 'dataFactory', function($scope, dataFactory) {
     $scope.subreddit = '';
     $scope.videoData = {};
     $scope.gifData = {};
     $scope.nextCounter = 25; 
-
+    $scope.haveSearched = false;
     $scope.canLoad = false; 
     $scope.wantVideo = true; 
     $scope.wantGif = false; 
     $scope.wantPic = false;
     $scope.mediaText = 'YT';
+    $scope.showSidebar = false;
+
+    $scope.toggleSidebar = function(){
+		if($scope.haveSearched) {
+			if($scope.showSidebar) $scope.showSidebar = false;
+			else $scope.showSidebar = true;
+		}
+	}
 
     $scope.fetchMedia = function(){
     	NProgress.start();
@@ -19,6 +27,8 @@ app.controller('searchController', ['$scope', 'dataFactory', function($scope, da
 	    	$scope.gifData = res.gifData;
 	    	//console.log($scope.videoData);
 	    	$scope.canLoad = true;
+	    	$scope.haveSearched = true;
+	    	$scope.showSidebar = true;
 	    	$scope.nextCounter = 25; 
 	    	NProgress.done();
     	}, function(reason){
@@ -71,6 +81,7 @@ app.controller('searchController', ['$scope', 'dataFactory', function($scope, da
 }]);
 
 app.factory('dataFactory', function($http, $q){
+	
 	var service = {};
 	var baseUrl = 'http://www.reddit.com/r/';
 	var finalUrl = '';

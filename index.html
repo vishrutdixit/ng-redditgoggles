@@ -4,65 +4,75 @@
 	<meta charset="UTF-8">
 	<title>redditgoggles</title>
 
+	<!-- JQuery -->
+	<script language="JavaScript" type="text/javascript" src="scripts/jquery-2.1.3.js"></script>
+
 	<!-- CSS -->
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.css"> 
+	<script language="JavaScript" type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 	<link rel="stylesheet" href="styles/style-main.css"> 
+	<link rel="stylesheet" href="styles/animate.css"> 
 
 	<!-- Angular -->
 	<script language="JavaScript" type="text/javascript" src="scripts/angular.js"></script>
+	<script language="JavaScript" type="text/javascript" src="scripts/angular-animate.js"></script>
 	<script language="JavaScript" type="text/javascript" src="scripts/app.js"></script>
-
-	<!-- JQuery -->
-	<script language="JavaScript" type="text/javascript" src="scripts/jquery-2.1.3.js"></script>
 
 	<!-- nprogress bar -->
 	<script src='scripts/nprogress.js'></script>
 	<link rel='stylesheet' href='styles/nprogress.css'/>
 
 </head>
-<body style="margin-left: 10px" ng-controller="searchController">
-	<h1> Hello World. Time to rebuild redditgoggles :D </h1>
-	<h2> 
-		<div>
-		<form ng-submit="fetchMedia()">
-		<input ng-model="subreddit" type="text" name="subreddit" placeholder="Enter a subreddit">
-		<!-- <a href='' ng-click="toggleMedia()" class="mediaSelect-btn" ng-class="mediaType ? 'a.yt' : 'a.gif'"> {{mediaText}} </a> -->
-		<button class="large-btn btn-success"> Submit </button>
+<body ng-controller="searchController">
+
+	<nav class="navbar navbar-default navbar-fixed-top">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      	<a class="navbar-brand" href="">
+	        	<img class="logo" alt="redditgoggles" src="reddit-goggles-logo.gif" height="50">
+	      	</a>	
+    	</div>
+	    <button onclick="this.blur();" ng-click="toggleSidebar()" id="sidebar-toggle" type="button" class="btn btn-default navbar-btn navbar-left">
+  			<span id="toggle-glyph" class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+		</button>
+    	<form ng-submit="fetchMedia()" id="search-form" class="main-search navbar-form " role="search">
+  			<div id="search-container">
+  				<input ng-model="subreddit" id="search-field" width="100" type="text" class="form-control" placeholder="Enter a subreddit." aria-describedby="basic-addon1">
+  				<button id="btn-search" type="submit" class="btn btn-primary">
+  				<!-- <span id="search-button" class="glyphicon glyphicon-search" aria-hidden="true"></span> -->
+  				Search </button>
+			</div>
+  			
 		</form>
+	  </div>
+	</nav>
+	
+	<div class="row-fluid" id="content-wrapper">
+
+		<!-- Sidebar -->
+		<div ng-show="showSidebar" class="sidebar col-md-3" id="sidebar"> 
+			<a ng-repeat="video in videoData.videos" href="#">
+				<div class="vid-summary row">				
+					<div class="preview-holder col-md-4"> 
+						<span class="helper"> </span> <img class="preview" src={{video.thumbUrl}} height="75" width="100"/>
+					</div>				
+					<div class="title-holder col-md-8">
+						<p class="vid-title"> {{video.title}} </p> 
+					</div>						
+				</div>
+			</a>	
 		</div>
-	</h2>
-	<!--
-	<iframe style="pointer-events: none" src="http://i.imgur.com/4zR6agI.gif" frameborder="0" scrolling="no" width="350" height="200" style="-webkit-backface-visibility: hidden;-webkit-transform: scale(1);" ></iframe>
-	<iframe width="350" height="200" src="http://gfycat.com/ifr/QuerulousVillainousArachnid" style="pointer-events: none -webkit-transform:scale(0.01);-moz-transform-scale(0.01);" frameborder="0" scrolling="no"></iframe>
-	<hr>
-	-->
-	<ul class="list-unstyled">
-		<!--
-		<li> Things to Do: </li>
 		
-		<li> Message on non-existing reddit name (realtime check) </li>
+		<!-- Main Content -->
+		<div class="col-md-9" id="main-content"> 
 		
-		<li> Mark visited links </li>
-		<li> include list of popular video/gif subreddits </li> 
-		<li> load comments into html or visit reddit apge </li>
-		
-		<li> FRONTEND </li>
-		-->
-		<hr>
-		<input ng-model="searchText">
-		<li ng-repeat="gif in gifData.gifs | filter:searchText"> 
-			{{gif.upvotes}} <a href={{gif.embedUrl}} target="_blank"> {{gif.title}}  </a> 
-			<br>
-			<!-- <img src={{video.thumbUrl}} + 'width=100 height=100'> -->
-		</li>
-		<li ng-repeat="video in videoData.videos | filter:searchText"> 
-			{{video.upvotes}} <a href={{video.embedUrl}} target="_blank"> {{video.title}}  </a> 
-			<br>
-			<!-- <img src={{video.thumbUrl}} + 'width=100 height=100'> -->
-		</li>
-		<li ng-show="canLoad" style="margin-top: 10px">
-			<button class="medium-btn btn-primary" ng-click="getNext()"> Load More </button>
-		</li>
-	</ul>
+		</div>
+
+	</div>
+	
+	
+	
+
+	
 </body>
 </html>
