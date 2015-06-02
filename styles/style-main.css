@@ -11,6 +11,20 @@
 .media-search:focus {
 	outline: none; 
 }
+#main-content {
+	margin-left: auto;
+	margin-right: auto;
+}
+.media-content{
+	margin-top: 79px;
+}
+.media-title {
+	height: 30px;
+	font-size: 20px;
+	position: absolute;
+	top: 0px;
+	margin-bottom: 10px;
+}
 .media-search-container {
 	position: relative;
 	top: 50px;

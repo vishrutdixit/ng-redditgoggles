@@ -77,7 +77,8 @@
 		
 		<!-- Main Content -->
 		<div class="col-md-9" id="main-content"> 
-			<div ng-show="isContent"> <iframe width="930" height="470" ng-src="{{trustSrc(selectedMedia.embedUrl)}}" frameborder="0" allowfullscreen> </iframe> </div>
+			<div class="media-title"> <h3> {{selectedMedia.title}} </h3> </div>
+			<div class="media-content" ng-show="isContent"> <iframe width="900" height="470" ng-src="{{trustSrc(selectedMedia.embedUrl)}}" frameborder="0" allowfullscreen> </iframe> </div>
 		</div>
 
 	</div>

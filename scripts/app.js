@@ -6,7 +6,7 @@ $(function () {
 /* -------- ANGULAR ------- */
 var app = angular.module('app', ['ngAnimate']); 
 
-app.controller('searchController', ['$scope', 'dataFactory', '$sce', function($scope, dataFactory, $sce) {
+app.controller('searchController', ['$scope', '$sce', 'dataFactory', function($scope, $sce, dataFactory) {
     $scope.subreddit = '';
     $scope.sidebarHeader = '';
     $scope.videoData = {};
