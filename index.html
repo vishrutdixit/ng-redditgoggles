@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.css"> 
 	<script language="JavaScript" type="text/javascript" src="bootstrap/js/bootstrap.js"></script>
 	<link rel="stylesheet" href="styles/style-main.css"> 
+	<link rel="stylesheet" href="icomoon/style.css"> 
 	<link rel="stylesheet" href="styles/animate.css"> 
 
 	<!-- Angular -->
@@ -38,7 +39,7 @@
     	<form ng-submit="fetchMedia()" id="search-form" class="main-search navbar-form " role="search">
   			<div id="search-container">
   				<input ng-model="subreddit" id="search-field" width="100" type="text" class="form-control" placeholder="Enter a subreddit." aria-describedby="basic-addon1">
-  				<button id="btn-search" type="submit" class="btn btn-primary">
+  				<button type="submit" class="btn btn-primary small-radius">
   				<!-- <span id="search-button" class="glyphicon glyphicon-search" aria-hidden="true"></span> -->
   				Search </button>
 			</div>
@@ -50,8 +51,19 @@
 	<div class="row-fluid" id="content-wrapper">
 
 		<!-- Sidebar -->
+		<div ng-show="showSidebar" class="col-md-3">
+			<div class="sidebar-header row">
+				<div class="sidebar-dashboard"> 
+					<a href="http://www.reddit.com/r/{{sidebarHeader}}" id="reddit-btn" class="btn btn-primary small-radius sidebar-btn"> <span class="icon-reddit"> </span> Browse on reddit </a> </form>
+					<button data-toggle="tooltip" data-placement="top" title="Load more" ng-click="getNext()" class="btn btn-primary small-radius sidebar-btn"> <span class="icon-plus"> </span> </button>
+				</div>
+				<div class="media-search-container"> 
+					<input class="media-search" ng-model="search" placeholder="Filter by title"> 
+				</div>
+			</div>
+		</div>
 		<div ng-show="showSidebar" class="sidebar col-md-3" id="sidebar"> 
-			<a ng-repeat="video in videoData.videos" href="#">
+			<a ng-click="selectMedia(video)" ng-repeat="video in videoData.videos | filter:search" href="#">
 				<div class="vid-summary row">				
 					<div class="preview-holder col-md-4"> 
 						<span class="helper"> </span> <img class="preview" src={{video.thumbUrl}} height="75" width="100"/>
@@ -60,12 +72,12 @@
 						<p class="vid-title"> {{video.title}} </p> 
 					</div>						
 				</div>
-			</a>	
+			</a>
 		</div>
 		
 		<!-- Main Content -->
 		<div class="col-md-9" id="main-content"> 
-		
+			<div ng-show="isContent"> <iframe width="930" height="470" ng-src="{{trustSrc(selectedMedia.embedUrl)}}" frameborder="0" allowfullscreen> </iframe> </div>
 		</div>
 
 	</div>

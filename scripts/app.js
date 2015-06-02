@@ -1,7 +1,14 @@
+/* Opt-in for bootstrap js */
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
+/* -------- ANGULAR ------- */
 var app = angular.module('app', ['ngAnimate']); 
 
-app.controller('searchController', ['$scope', 'dataFactory', function($scope, dataFactory) {
+app.controller('searchController', ['$scope', 'dataFactory', '$sce', function($scope, dataFactory, $sce) {
     $scope.subreddit = '';
+    $scope.sidebarHeader = '';
     $scope.videoData = {};
     $scope.gifData = {};
     $scope.nextCounter = 25; 
@@ -12,13 +19,25 @@ app.controller('searchController', ['$scope', 'dataFactory', function($scope, da
     $scope.wantPic = false;
     $scope.mediaText = 'YT';
     $scope.showSidebar = false;
+    $scope.isContent = false; 
+    $scope.selectedMedia = {};
+    $scope.isContent = false;
+
+    $scope.trustSrc = function(src) {
+    	return $sce.trustAsResourceUrl(src);
+  	}	
+    
+    $scope.selectMedia = function(media){
+		$scope.selectedMedia = media;
+		$scope.isContent = true;
+	};
 
     $scope.toggleSidebar = function(){
 		if($scope.haveSearched) {
 			if($scope.showSidebar) $scope.showSidebar = false;
 			else $scope.showSidebar = true;
 		}
-	}
+	};
 
     $scope.fetchMedia = function(){
     	NProgress.start();
@@ -30,6 +49,7 @@ app.controller('searchController', ['$scope', 'dataFactory', function($scope, da
 	    	$scope.haveSearched = true;
 	    	$scope.showSidebar = true;
 	    	$scope.nextCounter = 25; 
+	    	$scope.sidebarHeader = $scope.subreddit;
 	    	NProgress.done();
     	}, function(reason){
     		console.log(reason);
@@ -77,7 +97,6 @@ app.controller('searchController', ['$scope', 'dataFactory', function($scope, da
     	
     };
 
-    
 }]);
 
 app.factory('dataFactory', function($http, $q){
