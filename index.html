@@ -25,7 +25,8 @@
 
 </head>
 <body ng-controller="searchController">
-
+	
+	<!-- Navbar -->
 	<nav class="navbar navbar-default navbar-fixed-top">
 	  <div class="container-fluid">
 	    <div class="navbar-header">
@@ -51,7 +52,7 @@
 	<div class="row-fluid" id="content-wrapper">
 
 		<!-- Sidebar -->
-		<div ng-show="showSidebar" class="col-md-3">
+		<div ng-show="showSidebar" class="col-md-3 slide">
 			<div class="sidebar-header row">
 				<div class="sidebar-dashboard"> 
 					<a href="http://www.reddit.com/r/{{sidebarHeader}}" id="reddit-btn" class="btn btn-primary small-radius sidebar-btn"> <span class="icon-reddit"> </span> Browse on reddit </a> </form>
@@ -62,7 +63,7 @@
 				</div>
 			</div>
 		</div>
-		<div ng-show="showSidebar" class="sidebar col-md-3" id="sidebar"> 
+		<div ng-show="showSidebar" class="sidebar col-md-3 slide" id="sidebar"> 
 			<a ng-click="selectMedia(video)" ng-repeat="video in videoData.videos | filter:search" href="#">
 				<div class="vid-summary row">				
 					<div class="preview-holder col-md-4"> 
@@ -76,10 +77,17 @@
 		</div>
 		
 		<!-- Main Content -->
-		<div class="col-md-9" id="main-content"> 
+		<div ng-class="showSidebar ? 'col-md-9' : 'col-md-12'" id="main-content"> 
 			<div class="media-title"> <h3> {{selectedMedia.title}} </h3> </div>
 			<div class="media-content" ng-show="isContent"> <iframe width="900" height="470" ng-src="{{trustSrc(selectedMedia.embedUrl)}}" frameborder="0" allowfullscreen> </iframe> </div>
 		</div>
+
+		<!-- Footer -->
+		<!--
+		<div class="col-md-12 footer-container"> 
+		</div>
+		-->
+		
 
 	</div>
 	

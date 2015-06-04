@@ -28,8 +28,10 @@ app.controller('searchController', ['$scope', '$sce', 'dataFactory', function($s
   	}	
     
     $scope.selectMedia = function(media){
+		NProgress.start();
 		$scope.selectedMedia = media;
 		$scope.isContent = true;
+		NProgress.done();
 	};
 
     $scope.toggleSidebar = function(){

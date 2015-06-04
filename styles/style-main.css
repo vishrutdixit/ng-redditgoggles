@@ -1,3 +1,7 @@
+.footer-container {
+	height: 100px;
+	background-color: #7f8c8d;
+}
 
 .media-search {
 	color: #ecf0f1;
@@ -14,9 +18,13 @@
 #main-content {
 	margin-left: auto;
 	margin-right: auto;
+	background-color: #2980b9;
+	height: calc(100vh - 34px);
 }
 .media-content{
 	margin-top: 79px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
 }
 .media-title {
 	height: 30px;
@@ -24,6 +32,7 @@
 	position: absolute;
 	top: 0px;
 	margin-bottom: 10px;
+	color: #ecf0f1;
 }
 .media-search-container {
 	position: relative;
@@ -85,7 +94,8 @@ body {
 #search-container {
 	width: 600px;
 	position: relative;
-	left: 20%;
+	margin: auto; 
+	left: 50px;
 }
 #search-field {
 	width: 400px;
@@ -97,15 +107,28 @@ body {
 	background: white;
 	width: 100%;
 	height: 500px;
+	margin: auto;
 }
 .sidebar {
-	height: 450px;
+	height: calc(100vh - 134px);
 	overflow-y: scroll; 
 	overflow-x: hidden; 
 	background-color: #181B23;
 	position: absolute;
 	top: 100px;
+	min-width: 315px;
+	
 
+}
+
+.sidebar-header {
+	height: 100px;
+	color: #ecf0f1;
+	min-width: 315px;
+
+	background-color: black;
+	text-align: center;
+	/* #181B23 */
 }
 .sidebar:hover {
 	overflow-y: scroll;
@@ -161,16 +184,6 @@ body {
 .vid-summary:hover{
 	background-color: #24282d;
 }
-
-.sidebar-header {
-	height: 100px;
-	color: #ecf0f1;
-	background-color: black;
-	text-align: center;
-	/* #181B23 */
-}
-
-
 #sidebar::-webkit-scrollbar {
     width: 8px;
 }
@@ -191,10 +204,13 @@ body {
 	background: rgba(255,0,0,0.4); 
 }
 
-.ng-hide-add { 
+/* -------- ANIMATIONS ------- */ 
+/*
+.slide.ng-hide-add { 
 	animation:0.20s slideOutLeft ease; 
 }
-.ng-hide-remove { 
+.slide.ng-hide-remove { 
 	animation:0.20s slideInLeft ease; 
 }
+*/
 
