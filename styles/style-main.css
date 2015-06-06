@@ -1,3 +1,4 @@
+
 .footer-container {
 	height: 100px;
 	background-color: #7f8c8d;
@@ -18,11 +19,12 @@
 #main-content {
 	margin-left: auto;
 	margin-right: auto;
-	background-color: #2980b9;
-	height: calc(100vh - 34px);
+	background-color: #313131;
+	height: calc(100vh - 50px);
+	overflow-y: scroll;
 }
 .media-content{
-	margin-top: 79px;
+	margin-top: 70px;
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 }
@@ -33,6 +35,7 @@
 	top: 0px;
 	margin-bottom: 10px;
 	color: #ecf0f1;
+	font-family: 'Roboto';
 }
 .media-search-container {
 	position: relative;
@@ -106,26 +109,22 @@ body {
 	top: 50px;
 	background: white;
 	width: 100%;
-	height: 500px;
+	height: calc(100vh - 50px);
 	margin: auto;
+	overflow-y: hidden;
 }
 .sidebar {
-	height: calc(100vh - 134px);
+	height: calc(100vh - 150px);
 	overflow-y: scroll; 
 	overflow-x: hidden; 
 	background-color: #181B23;
 	position: absolute;
 	top: 100px;
-	min-width: 315px;
-	
-
 }
 
 .sidebar-header {
 	height: 100px;
 	color: #ecf0f1;
-	min-width: 315px;
-
 	background-color: black;
 	text-align: center;
 	/* #181B23 */
@@ -155,7 +154,7 @@ body {
 	color: #DAD9DA;
 	white-space: normal;
 	vertical-align: middle;
-	font-family: sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
 	text-align: left;
 	line-height: 20px;
@@ -176,10 +175,13 @@ body {
 .vid-summary{
 	height: 100px;
 	border-bottom:  1px solid black;
-
+	border-left: 4px solid transparent;
 	white-space: nowrap;
     text-align: center; 
+}
 
+.selected-media {
+	border-left: 4px solid #2980b9;
 }
 .vid-summary:hover{
 	background-color: #24282d;
@@ -188,21 +190,18 @@ body {
     width: 8px;
 }
  
-#sidebar::-webkit-scrollbar-track {
+.scrollbar::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
     -webkit-border-radius: 0px;
     border-radius: 10px;
 }
-#sidebar::-webkit-scrollbar-thumb {
+.scrollbar::-webkit-scrollbar-thumb {
     -webkit-border-radius: 5px;
     border-radius: 0px;
     background: rgba(169, 164, 169, .4); 
     -webkit-box-shadow: inset 0 0 6px rgba(,0,0,0.5); 
 }
 
-::-webkit-scrollbar-thumb:window-inactive {
-	background: rgba(255,0,0,0.4); 
-}
 
 /* -------- ANIMATIONS ------- */ 
 /*
@@ -213,4 +212,6 @@ body {
 	animation:0.20s slideInLeft ease; 
 }
 */
+
+
 

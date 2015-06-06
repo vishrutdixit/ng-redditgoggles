@@ -23,6 +23,11 @@
 	<script src='scripts/nprogress.js'></script>
 	<link rel='stylesheet' href='styles/nprogress.css'/>
 
+	<!-- Google Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+
 </head>
 <body ng-controller="searchController">
 	
@@ -63,9 +68,9 @@
 				</div>
 			</div>
 		</div>
-		<div ng-show="showSidebar" class="sidebar col-md-3 slide" id="sidebar"> 
-			<a ng-click="selectMedia(video)" ng-repeat="video in videoData.videos | filter:search" href="#">
-				<div class="vid-summary row">				
+		<div ng-show="showSidebar" class="sidebar col-md-3 slide scrollbar" id="sidebar"> 
+			<a ng-click="selectMedia(video)" class="enter-animation" ng-repeat="video in videoData.videos | filter:search as results" href="">
+				<div ng-class="video == selectedMedia ? 'selected-media' : ''" class="vid-summary row">				
 					<div class="preview-holder col-md-4"> 
 						<span class="helper"> </span> <img class="preview" src={{video.thumbUrl}} height="75" width="100"/>
 					</div>				
@@ -74,13 +79,18 @@
 					</div>						
 				</div>
 			</a>
+			<div ng-if="results.length == 0"> 
+					<span style="color: white"> There are no matching results... </span>
+			</div>
 		</div>
 		
 		<!-- Main Content -->
-		<div ng-class="showSidebar ? 'col-md-9' : 'col-md-12'" id="main-content"> 
+		<div class="scrollbar" ng-class="showSidebar ? 'col-md-9' : 'col-md-12'" id="main-content"> 
 			<div class="media-title"> <h3> {{selectedMedia.title}} </h3> </div>
-			<div class="media-content" ng-show="isContent"> <iframe width="900" height="470" ng-src="{{trustSrc(selectedMedia.embedUrl)}}" frameborder="0" allowfullscreen> </iframe> </div>
+			<div class="media-content" ng-show="isContent"> <iframe width="100%" height="400px" ng-src="{{trustSrc(selectedMedia.embedUrl)}}" frameborder="0" allowfullscreen> </iframe> </div>
 		</div>
+		
+
 
 		<!-- Footer -->
 		<!--
