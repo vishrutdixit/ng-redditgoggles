@@ -1,7 +1,17 @@
-
+iframe { 
+	background-color:black; 
+}
+.not-found {
+	position: relative;
+	top: 10px;
+	font-size: 30; 
+}
 .footer-container {
 	height: 100px;
 	background-color: #7f8c8d;
+}
+.tooltip {
+    position: fixed;
 }
 
 .media-search {
@@ -12,9 +22,15 @@
 	background-color: #181B23;
 	border: 1px solid #7f8c8d;
 	padding: 6px 12px;
+	transition: background-color 0.5s ease;
+}
+.media-search:hover {
+	background-color: #24282d;
 }
 .media-search:focus {
-	outline: none; 
+	outline: none;
+	border: 1px solid #2980b9; 
+	background-color: transparent;
 }
 #main-content {
 	margin-left: auto;
@@ -23,19 +39,21 @@
 	height: calc(100vh - 50px);
 	overflow-y: scroll;
 }
+#main-content:focus {
+    outline: none;
+}
 .media-content{
 	margin-top: 70px;
 	padding-bottom: 0px;
 	margin-bottom: 0px;
 }
-.media-title {
+.selected-media-title {
 	height: 30px;
 	font-size: 20px;
 	position: absolute;
 	top: 0px;
 	margin-bottom: 10px;
 	color: #ecf0f1;
-	font-family: 'Roboto';
 }
 .media-search-container {
 	position: relative;
@@ -58,12 +76,17 @@
 	color: #ecf0f1;
 	background-color: #181B23;
 	border: 1px solid #7f8c8d;
+	transition: background-color 0.5s ease;
 }
 .sidebar-btn:hover {
 	background-color: #24282d;
 	border: 1px solid #7f8c8d;
 }
 .sidebar-btn:active {
+	background-color: #24282d;
+}
+.sidebar-btn:focus {
+	outline: none;
 	background-color: #24282d;
 }
 
@@ -73,6 +96,7 @@
 
 body {
 	/* background: #2980b9; */
+	font-family: 'Roboto';
 }
 .logo {
 	position: relative;
@@ -148,21 +172,21 @@ body {
 
 .preview-holder{
 	height:100%;
+	margin: 0 auto;
 }
 
-.vid-title {
+.media-title {
 	color: #DAD9DA;
 	white-space: normal;
 	vertical-align: middle;
-	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
 	text-align: left;
 	line-height: 20px;
 
 	/* Positioning Title */
 	position: relative;
-	top: 12%;
-	left: 11px;
+	top: 10px;
+	left: 10px;
 
 	max-height: 60px;
 	overflow: hidden;
@@ -171,8 +195,9 @@ body {
 .title-holder {
 	vertical-align: middle; 
 	height: 100px;
+	margin: 0 auto;
 }
-.vid-summary{
+.media-summary{
 	height: 100px;
 	border-bottom:  1px solid black;
 	border-left: 4px solid transparent;
@@ -182,8 +207,9 @@ body {
 
 .selected-media {
 	border-left: 4px solid #2980b9;
+    background-color: #24282d;
 }
-.vid-summary:hover{
+.media-summary:hover{
 	background-color: #24282d;
 }
 #sidebar::-webkit-scrollbar {

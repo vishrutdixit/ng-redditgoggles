@@ -14,6 +14,10 @@
 	<link rel="stylesheet" href="icomoon/style.css"> 
 	<link rel="stylesheet" href="styles/animate.css"> 
 
+	<!-- gfycat js embed -->
+	<script language="JavaScript" type="text/javascript" src="scripts/gfycat.js"></script> 
+
+
 	<!-- Angular -->
 	<script language="JavaScript" type="text/javascript" src="scripts/angular.js"></script>
 	<script language="JavaScript" type="text/javascript" src="scripts/angular-animate.js"></script>
@@ -28,6 +32,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
+	
 </head>
 <body ng-controller="searchController">
 	
@@ -44,8 +49,8 @@
 		</button>
     	<form ng-submit="fetchMedia()" id="search-form" class="main-search navbar-form " role="search">
   			<div id="search-container">
-  				<input ng-model="subreddit" id="search-field" width="100" type="text" class="form-control" placeholder="Enter a subreddit." aria-describedby="basic-addon1">
-  				<button type="submit" class="btn btn-primary small-radius">
+  				<input ng-model="subreddit" id="search-field" width="100" type="text" class="form-control" placeholder="Enter a subreddit" aria-describedby="basic-addon1">
+  				<button type="submit" id="main-search-btn" class="btn btn-primary small-radius" style="font-family:'Roboto'">
   				<!-- <span id="search-button" class="glyphicon glyphicon-search" aria-hidden="true"></span> -->
   				Search </button>
 			</div>
@@ -64,46 +69,54 @@
 					<button data-toggle="tooltip" data-placement="top" title="Load more" ng-click="getNext()" class="btn btn-primary small-radius sidebar-btn"> <span class="icon-plus"> </span> </button>
 				</div>
 				<div class="media-search-container"> 
-					<input class="media-search" ng-model="search" placeholder="Filter by title"> 
+					<input class="media-search" ng-model="search" placeholder="Filter by title..."> 
 				</div>
 			</div>
 		</div>
-		<div ng-show="showSidebar" class="sidebar col-md-3 slide scrollbar" id="sidebar"> 
-			<a ng-click="selectMedia(video)" class="enter-animation" ng-repeat="video in videoData.videos | filter:search as results" href="">
-				<div ng-class="video == selectedMedia ? 'selected-media' : ''" class="vid-summary row">				
+		<div ng-if="showSidebar" class="sidebar col-md-3 slide scrollbar" id="sidebar"> 
+			<a ng-click="selectMedia(media)" class="enter-animation" ng-repeat="media in mediaData.media | filter:search as results track by $index" href="">
+				<div ng-class="media == selectedMedia ? 'selected-media' : ''" class="media-summary row">				
 					<div class="preview-holder col-md-4"> 
-						<span class="helper"> </span> <img class="preview" src={{video.thumbUrl}} height="75" width="100"/>
+						<span class="helper"> </span> <img class="preview" src={{media.thumbUrl}} height="75" width="100"/>
 					</div>				
 					<div class="title-holder col-md-8">
-						<p class="vid-title"> {{video.title}} </p> 
+						<p class="media-title"> {{media.title}} </p> 
 					</div>						
 				</div>
 			</a>
-			<div ng-if="results.length == 0"> 
-					<span style="color: white"> There are no matching results... </span>
+			<!--
+			<a ng-click="selectMedia(gif)" class="enter-animation" ng-repeat="gif in gifData.gifs | filter:search as _results track by $index" href="">
+				<div ng-class="gif == selectedMedia ? 'selected-media' : ''" class="media-summary row">				
+					<div class="preview-holder col-md-4"> 
+						<span class="helper"> </span> <img class="preview" src={{gif.thumbUrl}} height="75" width="100"/>
+					</div>				
+					<div class="title-holder col-md-8">
+						<p class="media-title"> {{gif.title}} </p> 
+					</div>						
+				</div>
+			</a>
+			-->
+			<div class="not-found" ng-if="results.length == 0"> 
+					<span style="color: #ecf0f1"> There are no matching results... </span>
 			</div>
 		</div>
 		
+		
 		<!-- Main Content -->
-		<div class="scrollbar" ng-class="showSidebar ? 'col-md-9' : 'col-md-12'" id="main-content"> 
-			<div class="media-title"> <h3> {{selectedMedia.title}} </h3> </div>
-			<div class="media-content" ng-show="isContent"> <iframe width="100%" height="400px" ng-src="{{trustSrc(selectedMedia.embedUrl)}}" frameborder="0" allowfullscreen> </iframe> </div>
+		<div tabindex="1" ng-keyDown="keypress($event)" class="scrollbar" ng-class="showSidebar ? 'col-md-9' : 'col-md-12'" id="main-content"> 
+			<div class="selected-media-title"> <h3> {{selectedMedia.title}} {{keynum}} </h3> </div>
+            
+			<div class="media-content" ng-show="isContent"> 
+				<iframe  width="100%" height="450px" ng-src="{{trustSrc(selectedMedia.embedUrl)}}"
+                frameborder="0" allowfullscreen="1"> </iframe> 
+				<img class="gfyitem" style="width:100%" data-id="{{selectedMedia.embedUrl}}" />
+			</div>
+			
+
 		</div>
-		
-
-
-		<!-- Footer -->
-		<!--
-		<div class="col-md-12 footer-container"> 
-		</div>
-		-->
-		
-
 	</div>
-	
-	
-	
 
 	
+
 </body>
 </html>
