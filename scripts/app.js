@@ -132,7 +132,7 @@ app.factory('dataFactory', function($http, $q){
 	service.data = {};
 
 	service.displayGfycat = function() {
-		alert();
+		//alert();
 		 elem_coll = $(".gfyitem");
 		 console.log(elem_coll[0]);
             for (var i = 0; i < elem_coll.length; i++) {
