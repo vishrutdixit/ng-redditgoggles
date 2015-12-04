@@ -1,3 +1,4 @@
+
 /* Opt-in for bootstrap js */
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
@@ -69,7 +70,7 @@ app.controller('searchController', ['$scope', '$sce', 'dataFactory', function($s
 	};
 
     $scope.toggleSidebar = function(){
-		if($scope.haveSearched || !$scope.haveSearched) {
+		if($scope.haveSearched) {
 			if($scope.showSidebar) $scope.showSidebar = false;
 			else $scope.showSidebar = true;
 		}

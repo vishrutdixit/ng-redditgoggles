@@ -36,6 +36,9 @@ iframe {
 	margin-left: auto;
 	margin-right: auto;
 	background-color: #313131;
+	/*background-color: #bdc3c7;
+	 * alternate color to match landing page
+	 */
 	height: calc(100vh - 50px);
 	overflow-y: scroll;
 }
@@ -43,17 +46,21 @@ iframe {
     outline: none;
 }
 .media-content{
+	display: block;
 	margin-top: 70px;
+	padding-top: 10px;
 	padding-bottom: 0px;
 	margin-bottom: 0px;
+	height: 80%;
 }
 .selected-media-title {
-	height: 30px;
+	height: 50px;
 	font-size: 20px;
 	position: absolute;
 	top: 0px;
 	margin-bottom: 10px;
 	color: #ecf0f1;
+	display: block;
 }
 .media-search-container {
 	position: relative;
@@ -228,6 +235,101 @@ body {
     -webkit-box-shadow: inset 0 0 6px rgba(,0,0,0.5); 
 }
 
+
+/* ---- LANDING PAGE CSS ----- */
+
+.monitor-svg {
+	position:relative;
+	top: 25px;
+	left: 90px;
+}
+
+.large-text {
+	position: relative;
+	top: 50px;
+	font-family: 'Lato', sans-serif;
+	font-size: 50px;
+
+}
+
+.get-started {
+	font-family: 'Roboto', serif;
+	font-size: 20px;
+	position: relative;
+	top: 70px;
+	right: 15px;
+	width: 480px;
+	text-align: center;
+
+	-webkit-box-shadow: 3px 4px 4px 1px rgba(6,184,50,1);
+	-moz-box-shadow: 3px 4px 4px 1px rgba(6,184,50,1);
+	box-shadow: 3px 4px 4px 1px rgba(6,184,50,1);
+}
+
+.redirect-focus {
+	color: green; 
+	text-decoration: none;
+}
+
+.redirect-focus:hover {
+	color: #1abc9c;
+	text-decoration:none;
+}
+
+.monitor-svg.hide {
+	display:none;
+}
+
+#landing-container {
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.landing-cont {
+	height: 486px;
+	background-color: #bdc3c7;
+	/*background-color: #1B1B1B; */
+	margin: 0; 
+	padding: 15px;
+	
+}
+
+/* -------- FOOTER CSS ------- */
+.footer {
+	height: 20vh;
+	background-color: #EEEEEE;
+	width: 100wh;
+	padding: 0px;
+	margin: 0px;
+}
+
+.tweet-reminder {
+	color: grey;
+	text-align: center;
+	position:relative;
+	top: 20px;
+	font-family: 'Lato', sans-serif;
+	font-size: 16px;
+	
+}
+
+.tweet-link {
+	color: grey;
+	font-family: 'Roboto Slab', sans-serif;
+	font-size: 18px;
+
+}
+
+.tweet-link:hover {
+	/*
+	color: #ecf0f1;
+	color: #bdc3c7;
+	*/
+	text-decoration: none;
+
+}
 
 /* -------- ANIMATIONS ------- */ 
 /*
