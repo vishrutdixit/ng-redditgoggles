@@ -44,7 +44,7 @@
 	        	<img class="logo" alt="redditgoggles" src="reddit-goggles-logo.gif" height="50">
 	      	</a>	
     	</div>
-	    <button onclick="this.blur();" ng-click="toggleSidebar()" id="sidebar-toggle" type="button" class="btn btn-default navbar-btn navbar-left">
+	    <button data-toggle="tooltip" data-placement="right" title="Toggle Sidebar" onclick="this.blur();" ng-click="toggleSidebar()" id="sidebar-toggle" type="button" class="btn btn-default navbar-btn navbar-left">
   			<span id="toggle-glyph" class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
 		</button>
     	<form ng-submit="fetchMedia()" id="search-form" class="main-search navbar-form " role="search">
@@ -62,7 +62,7 @@
 	<div class="row-fluid" id="content-wrapper">
 
 		<!-- Sidebar -->
-		<div ng-show="showSidebar" class="col-md-3 slide">
+		<div ng-show="showSidebar" class="col-xs-3 slide">
 			<div class="sidebar-header row">
 				<div class="sidebar-dashboard"> 
 					<a href="http://www.reddit.com/r/{{sidebarHeader}}" id="reddit-btn" class="btn btn-primary small-radius sidebar-btn"> <span class="icon-reddit"> </span> Browse on reddit </a> </form>
@@ -73,13 +73,13 @@
 				</div>
 			</div>
 		</div>
-		<div ng-if="showSidebar" class="sidebar col-md-3 slide scrollbar" id="sidebar"> 
+		<div ng-if="showSidebar" class="sidebar col-xs-3 slide scrollbar" id="sidebar"> 
 			<a ng-click="selectMedia(media)" class="enter-animation" ng-repeat="media in mediaData.media | filter:search as results track by $index" href="">
 				<div ng-class="media == selectedMedia ? 'selected-media' : ''" class="media-summary row">				
-					<div class="preview-holder col-md-4"> 
+					<div class="preview-holder col-xs-4"> 
 						<span class="helper"> </span> <img class="preview" src={{media.thumbUrl}} height="75" width="100"/>
 					</div>				
-					<div class="title-holder col-md-8">
+					<div class="title-holder col-xs-8">
 						<p class="media-title"> {{media.title}} </p> 
 					</div>						
 				</div>
@@ -87,10 +87,10 @@
 			<!--
 			<a ng-click="selectMedia(gif)" class="enter-animation" ng-repeat="gif in gifData.gifs | filter:search as _results track by $index" href="">
 				<div ng-class="gif == selectedMedia ? 'selected-media' : ''" class="media-summary row">				
-					<div class="preview-holder col-md-4"> 
+					<div class="preview-holder col-xs-4"> 
 						<span class="helper"> </span> <img class="preview" src={{gif.thumbUrl}} height="75" width="100"/>
 					</div>				
-					<div class="title-holder col-md-8">
+					<div class="title-holder col-xs-8">
 						<p class="media-title"> {{gif.title}} </p> 
 					</div>						
 				</div>
@@ -103,16 +103,38 @@
 		
 		
 		<!-- Main Content -->
-		<div tabindex="1" ng-keyDown="keypress($event)" class="scrollbar" ng-class="showSidebar ? 'col-md-9' : 'col-md-12'" id="main-content"> 
+		<div ng-if="haveSearched" tabindex="1" ng-keyDown="keypress($event)" class="scrollbar" ng-class="showSidebar ? 'col-xs-9' : 'col-xs-12'" id="main-content"> 
 			<div class="selected-media-title"> <h3> {{selectedMedia.title}} {{keynum}} </h3> </div>
             
 			<div class="media-content" ng-show="isContent"> 
-				<iframe  width="100%" height="450px" ng-src="{{trustSrc(selectedMedia.embedUrl)}}"
+				<iframe  width="100%" height="100%" ng-src="{{trustSrc(selectedMedia.embedUrl)}}"
                 frameborder="0" allowfullscreen="1"> </iframe> 
-				<img class="gfyitem" style="width:100%" data-id="{{selectedMedia.embedUrl}}" />
+				<img class="gfyitem" data-id="{{selectedMedia.embedUrl}}" />
 			</div>
 			
+		</div>
 
+		<!-- Landing Page Content -->
+		<div id="landing-container" class="row landing-cont">
+			<div ng-if="!haveSearched" ng-class="showSidebar ? 'col-xs-9' : 'col-xs-12'">
+				
+				<div class="col-xs-6"> 
+					<div>
+						<img class="monitor-svg" src="redditgoggles-hero-page-cropped.svg" height="460"> 
+					</div>
+				</div>
+				<div class="welcome-text col-xs-6"> 
+					<h2 class="row large-text"> Watch videos from any subreddit without the clutter.  </h2> 
+					<div class="get-started alert alert-success" role="alert">
+						<strong> Get started by <a href="#" class="redirect-focus"> searching</a> above! </strong>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Footer Content ---->
+		<div class="col-xs-12 footer">	
+			<p class="tweet-reminder"> Liked the website? Shoot me a tweet <a class="tweet-link" href="http://www.twitter.com/vishrutdixit"> @vishrutdixit </a> </p>
 		</div>
 	</div>
 
